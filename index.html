@@ -7,7 +7,7 @@
 <body>
 	<div id="calc-wrapper">
 		<div id="calculator">
-			<input type="text" name="screen" id="screen" disabled value="0">
+			<input type="text" name="screen" id="screen" disabled value="">
 			<button class="op" id="clear">CLEAR</button>
 			<button class="op" id="del">DEL</button>
 			<button class="op">/</button>
@@ -22,11 +22,36 @@
 			<button class="num">3</button>
 			<button class="num">2</button>
 			<button class="num">1</button>
-			<button class="op">x</button>
+			<button class="op">*</button>
 			<button class="num" id="zero">0</button>
-			<button class="num">,</button>
+			<button class="num">.</button>
 			<button class="op">=</button>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var calculator = document.getElementById("calculator");
+		var screen = document.getElementById("screen");
+
+		calculator.addEventListener('click', function(e) {
+			if (e.target.innerHTML !== 'CLEAR' && e.target.innerHTML !== '=' && e.target.innerHTML !== 'DEL') {
+				var text = screen.value;
+				text += e.target.innerHTML;
+				screen.value = text;
+			}
+			else if (e.target.innerHTML === 'DEL') {
+				var text = screen.value;
+				text = text.substr(0, text.length - 1);
+				screen.value = text;
+			}
+			else if (e.target.innerHTML === 'CLEAR') {
+				screen.value = "";
+			}
+			else if (e.target.innerHTML === '=') {
+				var text = screen.value;
+				screen.value = eval(text);
+			}
+		});
+
+	</script>
 </body>
 </html>
