@@ -3,36 +3,51 @@
 <head>
 	<title>Calculator</title>
 	<link rel="stylesheet" href="calculator.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
 </head>
 <body>
-	<div id="calc-wrapper">
 		<div id="calculator">
-			<input type="text" name="screen" id="screen" disabled value="">
-			<button class="op" id="clear">CLEAR</button>
-			<button class="op" id="del">DEL</button>
-			<button class="op">/</button>
-			<button class="num">9</button>
-			<button class="num">8</button>
-			<button class="num">7</button>
-			<button class="op">+</button>
-			<button class="num">6</button>
-			<button class="num">5</button>
-			<button class="num">4</button>
-			<button class="op">-</button>
-			<button class="num">3</button>
-			<button class="num">2</button>
-			<button class="num">1</button>
-			<button class="op">*</button>
-			<button class="num" id="zero">0</button>
-			<button class="num">.</button>
-			<button class="op">=</button>
+			<input type="text" name="screen" id="screen" disabled value="0">
+				<div class="top">
+					<button class="btn op">&#247;</button>			
+					<button class="btn op" id="del">del</button>
+					<button class="btn op" id="clear">c</button>
+				</div>
+				<div class="right">
+					<button class="btn op">&plus;</button>
+					<button class="btn op">&minus;</button>
+					<button class="btn op">x</button>
+					<button class="btn op" id="equal">=</button>
+				</div>
+				<div class="left">
+					<button class="btn num">9</button>
+					<button class="btn num">8</button>
+					<button class="btn num">7</button>
+
+					<button class="btn num">6</button>
+					<button class="btn num">5</button>
+					<button class="btn num">4</button>
+
+					<button class="btn num">3</button>
+					<button class="btn num">2</button>
+					<button class="btn num">1</button>
+
+					<button class="btn num">.</button>
+					<button class="btn num" id="zero">0</button>
+					
+				</div>
+			</div>
 		</div>
-	</div>
+
 	<script type="text/javascript">
 		var calculator = document.getElementById("calculator");
 		var screen = document.getElementById("screen");
 
 		calculator.addEventListener('click', function(e) {
+			var button = e.target;
+			
 			if (e.target.innerHTML !== 'CLEAR' && e.target.innerHTML !== '=' && e.target.innerHTML !== 'DEL') {
 				var text = screen.value;
 				text += e.target.innerHTML;
@@ -51,7 +66,6 @@
 				screen.value = eval(text);
 			}
 		});
-
 	</script>
 </body>
 </html>

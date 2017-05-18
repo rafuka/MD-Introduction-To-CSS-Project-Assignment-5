@@ -1,79 +1,99 @@
 * {
 	box-sizing: border-box;
+	font-family: 'Arimo', sans-serif;
 }
 
 body {
 	padding-top: 50px;
+	margin: 0px;
 }
 
 #calculator {
-	display: block;
-	width: 420px;
-	height: 610px;
-	margin: 40px auto;
-	padding: 10px;
-	background-color: #BCD1D6;
-	border-radius: 5px;
-	box-shadow: 0px 3px 7px rgba(0,0,0,0.2);
+	width: 310px;
+	margin: 0 auto;
+	overflow: hidden;
+	box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+	border-radius: 7px;
 }
 
 #screen {
-	display: block;
-	margin: 10px auto;
 	width: 100%;
-	height: 80px;
-	margin-top: 0px;
-	background-color: #444;
-	border: 3px inset #bcd1d6;
-	color: #F2FCFF;
-	text-align: right;
-	font-size: 62px;
-	padding: 0px 12px;
+    margin-bottom: 10px;
+    display: block;
+    height: 90px;
+    font-size: 60px;
+    text-align: right;
+    border: none;
+    color: #628a88;
+    background-color: #96d2d0;
+    padding: 10px;
+    border-radius: 3px 0px 0px;
 }
 
-.num, .op{
-	width: 100px;
-	height: 100px;
-	float: left;
-	font-size: 50px;
-	color: #587277;
-
+.btn {
+	-ms-appearance: none;
+	-webkit-appearance: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	border: none;
+	outline: none;
+	margin: 4px;
+	float: right;
+	font-size: 32px;
+	transition: all .3s ease-in-out;
+	color: rgba(0,0,0,0.5);
+	cursor: pointer;
+	user-select: none;
 }
 
-.op {
-	background-color: #587277;
-	color: #BCD1D6;
+.btn:hover {
+	box-shadow: 0px 0px 15px rgba(50,50,50,0.1);
 }
 
-#clear {
-	width: 200px;
-	font-size: 36px;
+.btn:active {
+	box-shadow: none;
+	background-color: #96d2d0;
+}
+
+.left {
+	width: 70%;
+    float: right;
+    margin-bottom: 13px;
+}
+
+.right {
+	width: 70px;
+    float: right;
+	margin-right: 19px;
+}
+
+.top {
+	width: 70%;
+    float: left;
+    margin-left: 4px;
+}
+
+#equal {
+	height: 127px;
+    border-radius: 35px;
+    background-color: #F9867B;
+	box-shadow: 0px 0px 15px #f9867b;
+	color: white;
+}
+
+#equal:hover {
+	box-shadow: 0px 0px 20px #f9867b;
 }
 
 #del {
-	font-size: 36px;
+	font-size: 24px;
 }
 
-#zero {
-	width: 200px;
+.op {
+	background-color: rgba(200,200,200,0.1);
 }
 
-button {
+.num {
 	background-color: transparent;
-	outline: none;
-	border: 1px solid rgba(0,0,0,0.2);
-}
-
-button:hover {
-	cursor: pointer;
-}
-
-.op:active {
-	background-color: #BCD1D6;
-	color: #587277;
-}
-
-.num:active {
-	background-color: #587277;
-	color: #BCD1D6;
 }
