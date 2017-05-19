@@ -11,14 +11,14 @@
 		<div id="calculator">
 			<input type="text" name="screen" id="screen" disabled value="0">
 				<div class="top">
-					<button class="btn op">&#247;</button>			
+					<button class="btn op" id="div">&#247;</button>			
 					<button class="btn op" id="del">del</button>
 					<button class="btn op" id="clear">c</button>
 				</div>
 				<div class="right">
-					<button class="btn op">&plus;</button>
-					<button class="btn op">&minus;</button>
-					<button class="btn op">x</button>
+					<button class="btn op" id="plus">&plus;</button>
+					<button class="btn op" id="minus">&minus;</button>
+					<button class="btn op" id="mult">x</button>
 					<button class="btn op" id="equal">=</button>
 				</div>
 				<div class="left">
@@ -34,7 +34,7 @@
 					<button class="btn num">2</button>
 					<button class="btn num">1</button>
 
-					<button class="btn num">.</button>
+					<button class="btn num" id="point">.</button>
 					<button class="btn num" id="zero">0</button>
 					
 				</div>
@@ -44,26 +44,25 @@
 	<script type="text/javascript">
 		var calculator = document.getElementById("calculator");
 		var screen = document.getElementById("screen");
+		var op = null;
 
 		calculator.addEventListener('click', function(e) {
-			var button = e.target;
 			
-			if (e.target.innerHTML !== 'CLEAR' && e.target.innerHTML !== '=' && e.target.innerHTML !== 'DEL') {
-				var text = screen.value;
-				text += e.target.innerHTML;
-				screen.value = text;
-			}
-			else if (e.target.innerHTML === 'DEL') {
-				var text = screen.value;
-				text = text.substr(0, text.length - 1);
-				screen.value = text;
-			}
-			else if (e.target.innerHTML === 'CLEAR') {
-				screen.value = "";
-			}
-			else if (e.target.innerHTML === '=') {
-				var text = screen.value;
-				screen.value = eval(text);
+			var element = e.target;
+
+			if (element.classList.contains('btn')) {
+				if (element.classList.contains('num')) {
+					console.log('num');
+					if (screen.value == '0') {
+						screen.value = element.innerHTML;
+					}
+					else {
+						screen.value += element.innerHTML;
+					}
+				}
+				else {
+					console.log('op');
+				}
 			}
 		});
 	</script>
