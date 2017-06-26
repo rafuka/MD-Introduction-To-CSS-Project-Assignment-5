@@ -23,8 +23,8 @@ body {
     font-size: 60px;
     text-align: right;
     border: none;
-    color: #628a88;
-    background-color: #96d2d0;
+    color: white;
+    background-color: #4686e6;
     padding: 7px;
     border-radius: 3px 0px 0px;
 }
@@ -36,8 +36,8 @@ body {
     height: 30px;
     font-size: 12px;
     border: none;
-    color: #628a88;
-    background-color: #96d2d0;
+    color: white;
+    background-color: #4686e6;
     padding: 2px;
     border-radius: 0px;
 }
