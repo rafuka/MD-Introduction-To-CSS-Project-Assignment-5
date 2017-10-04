@@ -8,63 +8,163 @@
 	<link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
 </head>
 <body>
-		<div id="calculator">
-			<input type="text" name="screen" id="screen" disabled value="0">
-			<input type="text" name="history" id="history" disabled>
-				<div class="top">
-					<button class="btn op" id="div">&#247;</button>			
-					<button class="btn op" id="del">del</button>
-					<button class="btn op" id="clear">c</button>
-				</div>
-				<div class="right">
-					<button class="btn op" id="plus">&plus;</button>
-					<button class="btn op" id="minus">&minus;</button>
-					<button class="btn op" id="mult">x</button>
-					<button class="btn op" id="equal">=</button>
-				</div>
-				<div class="left">
-					<button class="btn num">9</button>
-					<button class="btn num">8</button>
-					<button class="btn num">7</button>
-
-					<button class="btn num">6</button>
-					<button class="btn num">5</button>
-					<button class="btn num">4</button>
-
-					<button class="btn num">3</button>
-					<button class="btn num">2</button>
-					<button class="btn num">1</button>
-
-					<button class="btn num" id="point">.</button>
-					<button class="btn num" id="zero">0</button>					
-				</div>
-			</div>
+	<div id="calculator">
+		<input type="text" name="screen" id="screen" disabled value="0">
+		<input type="text" name="history" id="history" disabled value="0">
+		<div class="top">
+			<button class="calc-btn op" id="div">&#247;</button>
+			<button class="calc-btn op" id="del">del</button>
+			<button class="calc-btn op" id="clear">c</button>
 		</div>
+		<div class="right">
+			<button class="calc-btn op" id="plus">&plus;</button>
+			<button class="calc-btn op" id="minus">&minus;</button>
+			<button class="calc-btn op" id="mult">x</button>
+			<button class="calc-btn op" id="equal">=</button>
+		</div>
+		<div class="left">
+			<button class="calc-btn num">9</button>
+			<button class="calc-btn num">8</button>
+			<button class="calc-btn num">7</button>
+			<button class="calc-btn num">6</button>
+			<button class="calc-btn num">5</button>
+			<button class="calc-btn num">4</button>
+			<button class="calc-btn num">3</button>
+			<button class="calc-btn num">2</button>
+			<button class="calc-btn num">1</button>
+			<button class="calc-btn num" id="point">.</button>
+			<button class="calc-btn num" id="zero">0</button>
+		</div>								
+	</div>
 
 	<script type="text/javascript">
 		var calculator = document.getElementById("calculator");
 		var screen = document.getElementById("screen");
+		var scrhst = document.getElementById("history");
 		var op = null;
+		var lastOp = false;
+		var val1 = null;
+		var val2 = null;
+
+
+		function calculate(val1, op, val2) {
+			switch(op) {
+				case "plus":
+					return +val1 + +val2;
+					break;
+				case "minus":
+					return +val1 - +val2;
+					break;
+				case "mult":
+					return +val1 * +val2;
+					break;
+				case "div":
+					return +val1 / +val2;
+					break;
+			}
+		}
+
+		function numberPressed(number) {
+			if (val2) {
+				val2 += number;
+				screen.value += number;
+				scrhst.value += number;
+			}
+			else if (op) {
+				val2 = number;
+				screen.value = number;
+				scrhst.value += number;
+			}
+			else if (val1) {
+				val1 += number;
+				screen.value += number;
+				scrhst.value += number;
+			}
+			else {
+				val1 = number;
+				screen.value = number;
+				scrhst.value = number;
+			}
+		}
+
+		function opPressed(opval, element) {
+			if (opval === "del") {
+				if (val2) {
+					if (val2.length > 1) {
+						val2 = val2.substr(0, val2.length - 1);
+						scrhst.value = scrhst.value.substr(0, scrhst.value.length - 1);
+						screen.value = screen.value.substr(0, screen.value.length - 1);
+					}
+					else {
+						val2 = null;
+						screen.value = '0';
+						scrhst.value = scrhst.value.substr(0, scrhst.value.length - 1);
+					}
+				}
+				else if (op) {
+					op = null;
+					scrhst.value = scrhst.value.substr(0, scrhst.value.length - 3);
+				}
+				else if (val1) {
+					if (val1.length > 1) {
+						val1 = val1.substr(0, val1.length - 1);
+						scrhst.value = scrhst.value.substr(0, scrhst.value.length - 1);
+						screen.value = screen.value.substr(0, screen.value.length - 1);
+					}
+				}
+			}
+
+			else if (opval === "clear") {
+				val1 = null;
+				op = null;
+				val2 = null;
+				screen.value = 0;
+				scrhst.value = 0;
+			}
+			else if (opval === "equal") {
+				if (val2) {
+					val1 = calculate(val1, op, val2);
+					val2 = null;
+					op = null;
+					screen.value = val1;
+					scrhst.value = val1;
+				}
+			}
+			else if (val2) {
+				val1 = calculate(val1, op, val2);
+				val2 = null;
+				op = opval;
+				screen.value = val1;
+				scrhst.value += " " + element.innerHTML + " ";
+			}
+			else if (op) {
+				if (op !== opval) {
+					op = opval;
+					scrhst.value = scrhst.value.substr(0, scrhst.value.length - 3) + " " + element.innerHTML + " ";
+				}
+				
+			}
+			else if (val1) {
+				op = opval;
+				scrhst.value = scrhst.value + " " + element.innerHTML + " ";
+			}
+		}
 
 		calculator.addEventListener('click', function(e) {
 			
 			var element = e.target;
 
-			if (element.classList.contains('btn')) {
+			if (element.classList.contains('calc-btn')) {
+
 				if (element.classList.contains('num')) {
-					console.log('num');
-					if (screen.value == '0') {
-						screen.value = element.innerHTML;
-					}
-					else {
-						screen.value += element.innerHTML;
-					}
+					numberPressed(element.innerHTML);
 				}
 				else {
-					console.log('op');
+					opPressed(element.id, element);
 				}
 			}
 		});
+
 	</script>
 </body>
 </html>
